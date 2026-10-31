@@ -1,7 +1,5 @@
 # My House
 
-[![Deploy to GitHub Pages](https://github.com/mubahood/my-house/actions/workflows/pages.yml/badge.svg)](https://github.com/mubahood/my-house/actions/workflows/pages.yml)
-
 Everything about the house in one place: the photo gallery, the 3D model, the wiring budget and the written design notes.
 
 **Live site: [mubahood.github.io/my-house](https://mubahood.github.io/my-house/)** · [Wiring budget](https://mubahood.github.io/my-house/wiring.html) · [3D model](https://mubahood.github.io/my-house/model/3d-model.html) · [Notes](https://mubahood.github.io/my-house/docs/)
@@ -17,6 +15,7 @@ my-house/
 ├── index.html              the photo gallery
 ├── wiring.html             the pipe work and wiring budget, a photo of every item
 ├── 404.html                the page for addresses that do not exist (on the live site)
+├── publish.sh              publishes the site to GitHub Pages
 ├── assets/
 │   ├── photos.js           the photo list: titles, descriptions, which floor
 │   ├── gallery.css         the look
@@ -92,12 +91,13 @@ Every item on the electrician's pipe work and wiring paper, with a photo, quanti
 
 ## Publishing
 
-The site is published to GitHub Pages by `.github/workflows/pages.yml` on every push to `main`. It copies everything except `originals/` and this README, so the live site stays small (about 10 MB). To publish a change:
+The live site is served by GitHub Pages from the `gh-pages` branch. `publish.sh` builds that branch from this folder, leaving out `originals/` and this README so the site stays small (about 10 MB). To publish a change:
 
 ```
 git add -A
 git commit -m "Describe the change"
 git push
+./publish.sh
 ```
 
-The new version is live a minute or two later. The run is listed under the repository's **Actions** tab.
+The new version is live a minute or two later. `main` keeps the full project, originals included; `gh-pages` holds only what the website needs.
