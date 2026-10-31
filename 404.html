@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f4f3ef">
+  <meta name="robots" content="noindex">
+  <title>Room Not Found</title>
+  <!-- absolute paths: this page is served for any missing address, at any depth -->
+  <link rel="icon" href="/my-house/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/my-house/assets/gallery.css?v=8">
+  <style>
+    .lost { min-height: calc(100dvh - 140px); display: grid; place-items: center; text-align: center; padding: 40px 16px; }
+    .plan { width: min(420px, 86vw); height: auto; margin: 0 auto 28px; overflow: visible; }
+    .plan .wall { fill: none; stroke: var(--ink); stroke-width: 6; stroke-linejoin: round; }
+    .plan .thin { fill: none; stroke: var(--grey); stroke-width: 2; }
+    .plan .gap { fill: none; stroke: #c7372a; stroke-width: 2.5; stroke-dasharray: 6 6; animation: march 1.4s linear infinite; }
+    .plan text { font: italic 15px Georgia, serif; fill: var(--muted); }
+    .plan .q { font: 400 54px Georgia, serif; fill: #c7372a; font-style: normal; }
+    @keyframes march { to { stroke-dashoffset: -24; } }
+    .code { margin: 0; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+    .lost h1 { margin: 10px 0 0; font: 400 clamp(38px, 6vw, 72px)/1 var(--serif); letter-spacing: -.02em; }
+    .lost p.lede { max-width: 44ch; margin: 16px auto 0; color: var(--ink-2); }
+    .ways { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 28px; }
+    .ways a { padding: 10px 16px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255, 255, 255, .7); font-size: 13.5px; }
+    .ways a:first-child { background: var(--ink); color: #fff; border-color: var(--ink); }
+    .ways a:hover { border-color: var(--ink); }
+    @media (prefers-reduced-motion: reduce) { .plan .gap { animation: none; } }
+  </style>
+</head>
+<body>
+<main class="lost">
+  <div>
+    <!-- a floor plan with one room that was never drawn -->
+    <svg class="plan" viewBox="0 0 420 240" aria-hidden="true">
+      <path class="wall" d="M10 10H410V230H10Z"/>
+      <path class="wall" d="M150 10V140M150 180V230M10 120H150M270 10V230"/>
+      <path class="thin" d="M30 30h100M30 40h70M290 200h100M290 190h60"/>
+      <rect class="gap" x="166" y="26" width="88" height="188" rx="4"/>
+      <text x="80" y="80" text-anchor="middle">Living hall</text>
+      <text x="80" y="180" text-anchor="middle">Kitchen</text>
+      <text x="340" y="120" text-anchor="middle">Bedroom</text>
+      <text class="q" x="210" y="138" text-anchor="middle">?</text>
+    </svg>
+    <p class="code">404 · not on the plan</p>
+    <h1>This room isn’t built yet</h1>
+    <p class="lede">The page you asked for is not part of the house. It may have moved, or the address may have a typing mistake.</p>
+    <nav class="ways" aria-label="Go to">
+      <a href="/my-house/">All the photos</a>
+      <a href="/my-house/wiring.html">Wiring budget</a>
+      <a href="/my-house/model/3d-model.html">3D model</a>
+      <a href="/my-house/docs/">Notes</a>
+    </nav>
+  </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f4f3ef">
+  <meta name="description" content="A visual study of my house, room by room: outside, floors, kitchen directions, TV wall and ceiling ideas, in white, grey and black.">
+  <title>My House</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://mubahood.github.io/my-house/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="My house, room by room">
+  <meta property="og:description" content="A visual study of my house: outside, both floors, kitchen directions, TV wall and ceiling ideas, a 3D model and the wiring budget.">
+  <meta property="og:url" content="https://mubahood.github.io/my-house/">
+  <meta property="og:image" content="https://mubahood.github.io/my-house/assets/social.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="assets/gallery.css?v=8">
+</head>
+<body>
+<a class="skip" href="#main">Skip to the photos</a>
+
+<!-- ============================================================ navigation: one glass line -->
+<header class="nav" id="nav">
+  <div class="nav-line">
+    <a class="brand" href="./" aria-label="My house, show all photos">
+      <span class="brand-mark" aria-hidden="true">H</span><span class="brand-name">My house</span>
+    </a>
+
+    <nav class="sections" id="sections" aria-label="Show photos of">
+      <!-- filled from photos.js -->
+      <span class="indicator" id="indicator" aria-hidden="true"></span>
+    </nav>
+
+    <div class="actions">
+      <button class="act search-act" id="openPalette" type="button" aria-label="Search and jump (press /)" title="Search and jump">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg>
+        <span class="act-label">Search</span><kbd>/</kbd>
+      </button>
+      <button class="act" id="modeBefore" type="button" aria-pressed="false" title="Show the first ideas next to the final images (B)">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18"/><rect x="3" y="5" width="18" height="14" rx="1.5"/></svg>
+        <span class="act-label">Before</span>
+      </button>
+      <button class="act" id="modeSaved" type="button" aria-pressed="false" title="Show saved photos only">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 8.9c0 5.3-8.8 10.1-8.8 10.1S3.2 14.2 3.2 8.9A4.3 4.3 0 0 1 12 7.1a4.3 4.3 0 0 1 8.8 1.8Z"/></svg>
+        <span class="badge" id="savedCount" hidden>0</span>
+      </button>
+      <button class="act" id="modeArchive" type="button" aria-pressed="false" title="Archive: photos you have put away">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="4.5" rx="1"/><path d="M5 8.5V19a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8.5M10 12.5h4"/></svg>
+        <span class="badge" id="archiveCount" hidden>0</span>
+      </button>
+      <div class="menu-wrap">
+        <button class="act" id="openFiles" type="button" aria-expanded="false" aria-controls="files" title="Project files">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+        </button>
+        <div class="pop" id="files" hidden>
+          <p class="pop-label">Project files</p>
+          <a href="model/3d-model.html"><span>3D model</span><small>Walk around the house</small></a>
+          <a href="wiring.html"><span>Wiring budget</span><small>Pipes, boxes and wire, with photos and prices</small></a>
+          <a href="docs/index.html?f=01-architectural-description"><span>Description</span><small>Every room, named and explained</small></a>
+          <a href="docs/index.html?f=03-tv-wall-ideas"><span>TV wall ideas</span><small>Six designs with sizes</small></a>
+          <a href="docs/index.html?f=06-kitchen-ideas"><span>Kitchen ideas</span><small>Seven finish directions</small></a>
+          <a href="docs/index.html?f=05-ceiling-ideas"><span>Ceiling ideas</span><small>Six layouts, spots and speakers</small></a>
+          <a href="docs/index.html?f=02-corrections-for-the-image-ai"><span>Image AI notes</span><small>Rules for every new image</small></a>
+          <a href="docs/index.html?f=04-image-ai-command-tv-wall"><span>TV wall command</span><small>Paste into the image tool</small></a>
+          <p class="pop-label">Keys</p>
+          <div class="keys"><kbd>/</kbd> search <kbd>B</kbd> before <kbd>←</kbd><kbd>→</kbd> browse <kbd>C</kbd> compare <kbd>S</kbd> save <kbd>A</kbd> archive</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="progress" aria-hidden="true"><span id="progress"></span></div>
+</header>
+
+<!-- ============================================================ photos -->
+<main id="main">
+  <div class="mode-bar" id="modeBar" hidden>
+    <span id="modeText"></span>
+    <button type="button" id="restoreAll" hidden>Restore all</button>
+    <button type="button" id="modeClear">Show everything</button>
+  </div>
+  <div id="rooms"></div>
+  <p class="empty" id="empty" hidden></p>
+  <noscript><p class="empty">This gallery needs JavaScript. All photos are also in the images folder, sorted by room.</p></noscript>
+</main>
+
+<footer class="foot">
+  <div class="swatches" aria-label="Palette: 70 percent white, 20 percent grey, 10 percent black">
+    <span class="sw white"></span><span class="sw grey"></span><span class="sw black"></span>
+  </div>
+  <p>White · grey · black</p>
+  <p id="footCount"></p>
+</footer>
+
+<!-- ============================================================ command palette -->
+<dialog class="palette" id="palette" aria-label="Search and jump">
+  <div class="pal-head">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg>
+    <input id="palInput" type="text" placeholder="Search rooms, jump to a floor, open a file" autocomplete="off" spellcheck="false"
+           role="combobox" aria-expanded="true" aria-controls="palList" aria-autocomplete="list">
+    <kbd>Esc</kbd>
+  </div>
+  <ul class="pal-list" id="palList" role="listbox"></ul>
+</dialog>
+
+<!-- ============================================================ viewer -->
+<dialog class="viewer" id="viewer" aria-label="Photo viewer">
+  <div class="v-top">
+    <span class="v-where" id="vWhere"></span>
+    <div class="v-tools">
+      <button class="v-btn text" id="vCompare" type="button" aria-pressed="false" hidden>Compare <kbd>C</kbd></button>
+      <button class="v-btn" id="vZoom" type="button" aria-pressed="false" aria-label="Zoom (Z)" title="Zoom (Z)">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2M11 8v6M8 11h6"/></svg></button>
+      <button class="v-btn" id="vSave" type="button" aria-pressed="false" aria-label="Save (S)" title="Save (S)">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 8.9c0 5.3-8.8 10.1-8.8 10.1S3.2 14.2 3.2 8.9A4.3 4.3 0 0 1 12 7.1a4.3 4.3 0 0 1 8.8 1.8Z"/></svg></button>
+      <button class="v-btn" id="vArchive" type="button" aria-label="Archive (A)" title="Archive (A)"></button>
+      <button class="v-btn" id="vFull" type="button" aria-label="Full screen (F)" title="Full screen (F)">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5M16 3h5v5M3 16v5h5M21 16v5h-5"/></svg></button>
+      <button class="v-btn" id="vClose" type="button" aria-label="Close (Esc)" title="Close (Esc)">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 5 14 14M19 5 5 19"/></svg></button>
+    </div>
+  </div>
+
+  <div class="v-stage">
+    <button class="v-nav prev" id="vPrev" type="button" aria-label="Previous photo">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <div class="v-frame" id="vFrame">
+      <div class="v-pic" id="vPic">
+        <img class="v-img" id="vImg" alt="" draggable="false">
+        <div class="v-before" id="vBefore" hidden><img id="vBeforeImg" alt="" draggable="false"></div>
+        <div class="v-handle" id="vHandle" hidden role="slider" tabindex="0" aria-label="Compare first idea and final" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50"><span></span></div>
+        <span class="v-tag before" id="vTagBefore" hidden>First idea</span>
+        <span class="v-tag after" id="vTagAfter" hidden>Final</span>
+      </div>
+    </div>
+    <button class="v-nav next" id="vNext" type="button" aria-label="Next photo">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+  </div>
+
+  <div class="v-bottom">
+    <div class="v-info">
+      <h2 class="v-title" id="vTitle"></h2>
+      <p class="v-desc" id="vDesc"></p>
+    </div>
+    <span class="v-count" id="vCount"></span>
+  </div>
+  <div class="strip" id="strip" role="listbox" aria-label="All photos in this view"></div>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="assets/photos.js?v=13"></script>
+<script src="assets/gallery.js?v=13"></script>
+</body>
+</html>
