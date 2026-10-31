@@ -13,6 +13,7 @@ rsync -a ./ "$OUT/" \
   --exclude .git --exclude .github --exclude originals --exclude README.md \
   --exclude publish.sh --exclude .gitignore --exclude .DS_Store --exclude _t.html
 touch "$OUT/.nojekyll"
+SIZE=$(du -sh "$OUT" | cut -f1)
 
 cd "$OUT"
 git init -q -b gh-pages
@@ -20,4 +21,4 @@ git add -A
 git commit -q -m "Publish site from $(cd - >/dev/null && git rev-parse --short HEAD)"
 git push -q -f "$REMOTE" gh-pages
 
-echo "Published $(du -sh . | cut -f1). Live in a minute at https://mubahood.github.io/my-house/"
+echo "Published $SIZE. Live in a minute at https://mubahood.github.io/my-house/"
