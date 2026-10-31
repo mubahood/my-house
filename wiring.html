@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f4f3ef">
+  <meta name="description" content="Pipe work and wiring budget for my house: every conduit, fitting, wire and cable with a photo, quantity and price in UGX.">
+  <title>Wiring Budget</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Pipe work and wiring budget · My house">
+  <meta property="og:description" content="Every conduit, bend, box and roll of wire, with a photo, quantity and price. UGX 1,871,500 before labour and transport.">
+  <meta property="og:url" content="https://mubahood.github.io/my-house/wiring.html">
+  <meta property="og:image" content="https://mubahood.github.io/my-house/assets/social.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="assets/gallery.css?v=8">
+  <link rel="stylesheet" href="assets/wiring.css?v=1">
+</head>
+<body class="wiring">
+<a class="skip" href="#main">Skip to the budget</a>
+
+<!-- ============================================================ navigation: the same glass line as the gallery -->
+<header class="nav" id="nav">
+  <div class="nav-line">
+    <a class="brand" href="index.html" aria-label="My house, back to the photos">
+      <span class="brand-mark" aria-hidden="true">H</span><span class="brand-name">My house</span>
+    </a>
+
+    <nav class="sections" aria-label="Jump to">
+      <a class="sec-link" href="#fittings">Fittings<span class="n">12</span></a>
+      <a class="sec-link" href="#wire">Wire<span class="n">10</span></a>
+      <a class="sec-link" href="#check">Check the paper</a>
+    </nav>
+
+    <div class="actions">
+      <div class="seg" role="group" aria-label="Show as">
+        <button class="act" id="viewCards" type="button" aria-pressed="true" title="Photo cards">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="1"/><rect x="13.5" y="3.5" width="7" height="7" rx="1"/><rect x="3.5" y="13.5" width="7" height="7" rx="1"/><rect x="13.5" y="13.5" width="7" height="7" rx="1"/></svg>
+          <span class="act-label">Cards</span>
+        </button>
+        <button class="act" id="viewList" type="button" aria-pressed="false" title="Receipt list">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></svg>
+          <span class="act-label">List</span>
+        </button>
+      </div>
+      <button class="act" id="print" type="button" title="Print the list">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 9V3h10v6M7 17H4v-7a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v7h-3"/><rect x="7" y="14" width="10" height="7" rx="1"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="progress" aria-hidden="true"><span id="progress"></span></div>
+</header>
+
+<main id="main">
+  <!-- ============================================================ hero -->
+  <section class="hero" aria-labelledby="heroTitle">
+    <div class="hero-text">
+      <p class="eyebrow">Budget · electrical first fix</p>
+      <h1 id="heroTitle">Pipe work <em>&amp;</em> wiring</h1>
+      <p class="lede">Every pipe, bend, box and roll of wire on the electrician’s paper, with a picture of what it is. Line totals in UGX, as written. Labour and transport are not included.</p>
+    </div>
+    <div class="hero-total">
+      <span class="label">Grand total</span>
+      <span class="big"><small>UGX</small> <b id="grand">1,871,500</b></span>
+      <span class="sub" id="grandNote">22 items · 2 groups</span>
+    </div>
+
+    <!-- three wires running through one conduit -->
+    <svg class="run" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true">
+      <path class="pipe" d="M-10 78 C180 78 250 34 420 34 S650 92 820 92 S1050 44 1210 44"/>
+      <path class="w w1" d="M-10 72 C180 72 250 28 420 28 S650 86 820 86 S1050 38 1210 38"/>
+      <path class="w w2" d="M-10 78 C180 78 250 34 420 34 S650 92 820 92 S1050 44 1210 44"/>
+      <path class="w w3" d="M-10 84 C180 84 250 40 420 40 S650 98 820 98 S1050 50 1210 50"/>
+    </svg>
+
+    <!-- where the money goes: one segment per item, coloured like the thing itself -->
+    <div class="spend" aria-label="Where the money goes">
+      <div class="spend-head">
+        <span>Where the money goes</span>
+        <span class="spend-legend" id="spendLegend"></span>
+      </div>
+      <div class="spend-bar" id="spendBar"></div>
+      <p class="spend-hint" id="spendHint">Point at a segment to see the item</p>
+    </div>
+
+    <!-- shopping progress -->
+    <div class="bought" aria-live="polite">
+      <div class="bought-ring" id="boughtRing" style="--p:0">
+        <span id="boughtPct">0%</span>
+      </div>
+      <div class="bought-text">
+        <b id="boughtCount">Nothing bought yet</b>
+        <span id="boughtMoney">Tick items as they arrive on site</span>
+      </div>
+      <button class="link-btn" id="boughtReset" type="button" hidden>Clear ticks</button>
+    </div>
+  </section>
+
+  <!-- ============================================================ items -->
+  <div id="groups"></div>
+
+  <!-- ============================================================ list view (also the print view) -->
+  <section class="receipt" id="receipt" hidden aria-label="Receipt list">
+    <header class="receipt-head">
+      <h2>Pipe work and wiring</h2>
+      <p>My house · line totals in UGX · labour and transport excluded</p>
+    </header>
+    <table>
+      <thead><tr><th>#</th><th class="ph">Item</th><th>Qty</th><th class="r">Each</th><th class="r">Total</th></tr></thead>
+      <tbody id="receiptBody"></tbody>
+      <tfoot id="receiptFoot"></tfoot>
+    </table>
+  </section>
+
+  <!-- ============================================================ check the paper -->
+  <section class="check" id="check" aria-labelledby="checkTitle">
+    <div class="check-intro">
+      <p class="eyebrow">Two lines to confirm</p>
+      <h2 id="checkTitle">Check the paper</h2>
+      <p>The handwriting is hard to read in places. The items add up to <b id="sumWritten">1,871,500</b>, but the total written on the paper is <b>1,875,500</b>. Pick the reading you think is right and every total on this page follows.</p>
+    </div>
+
+    <div class="sums">
+      <div><span>Items add up to</span><b id="sumNow">1,871,500</b></div>
+      <div><span>Paper says</span><b id="sumPaper">1,875,500</b></div>
+      <div class="gap" id="gapBox"><span>Difference</span><b id="sumGap">4,000</b></div>
+    </div>
+
+    <div class="cases" id="cases"></div>
+
+    <div class="clues">
+      <h3>What the numbers suggest</h3>
+      <ol>
+        <li><b>Item 18 was counted as 252,000.</b> The paper’s own total only works with that figure; with 25,200 it would be about 227,000 short. So the price was added in as written, though it may still be wrong (perhaps 2 rolls at 126,000).</li>
+        <li><b>Item 19 is probably 28,000.</b> Fourteen metres at 2,000 a metre is 28,000, which closes the 4,000 gap exactly.</li>
+      </ol>
+      <button class="link-btn" id="resetFix" type="button" hidden>Back to the figures as written</button>
+    </div>
+  </section>
+
+  <p class="credit-note">Photos are product pictures from public listings, chosen to show what each item looks like. The brand in a photo is not necessarily the one bought. Click a photo to see its source.</p>
+</main>
+
+<footer class="foot">
+  <div class="swatches" aria-label="Wire colours: red, black and yellow">
+    <span class="sw" style="flex:1;background:#c7372a"></span><span class="sw" style="flex:1;background:#1d1e1c"></span><span class="sw" style="flex:1;background:#cfae1f"></span>
+  </div>
+  <p><a href="index.html">← Back to the house photos</a></p>
+  <p id="footCount">22 items</p>
+</footer>
+
+<!-- ============================================================ photo viewer -->
+<dialog class="lb" id="lb" aria-label="Item photo">
+  <div class="lb-card">
+    <div class="lb-pic"><img id="lbImg" alt=""></div>
+    <div class="lb-info">
+      <p class="lb-no" id="lbNo"></p>
+      <h2 id="lbName"></h2>
+      <p class="lb-spec" id="lbSpec"></p>
+      <p class="lb-what" id="lbWhat"></p>
+      <dl class="lb-nums" id="lbNums"></dl>
+      <p class="lb-check" id="lbCheck" hidden></p>
+      <p class="lb-src">Photo: <a id="lbSrc" href="#" target="_blank" rel="noopener noreferrer"></a></p>
+      <div class="lb-nav">
+        <button class="lb-btn" id="lbPrev" type="button" aria-label="Previous item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <span id="lbCount"></span>
+        <button class="lb-btn" id="lbNext" type="button" aria-label="Next item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+      </div>
+    </div>
+    <button class="lb-close" id="lbClose" type="button" aria-label="Close (Esc)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 5 14 14M19 5 5 19"/></svg></button>
+  </div>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="assets/wiring-data.js?v=1"></script>
+<script src="assets/wiring.js?v=1"></script>
+</body>
+</html>

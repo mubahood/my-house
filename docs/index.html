@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f4f3ef">
+  <meta name="description" content="Design notes for my house: the architectural description, TV wall, kitchen and ceiling ideas, and the image AI rules.">
+  <title>House Notes</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/gallery.css?v=8">
+  <style>
+    /* notes reader: the .md files in this folder, shown in the house style */
+    .reader { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: clamp(20px, 4vw, 64px); max-width: 1180px; margin: 0 auto; }
+    .toc { position: sticky; top: calc(var(--nav-h) + 30px); align-self: start; }
+    .toc p { margin: 0 0 10px; font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+    .toc a { display: block; padding: 9px 12px; margin: 0 0 2px; border-radius: 10px; font-size: 13.5px; color: var(--ink-2); }
+    .toc a small { display: block; font-size: 11.5px; color: var(--muted); }
+    .toc a:hover { background: rgba(255, 255, 255, .7); color: var(--ink); }
+    .toc a[aria-current="page"] { background: var(--ink); color: #fff; }
+    .toc a[aria-current="page"] small { color: #cfcec7; }
+    .doc { min-width: 0; padding: clamp(22px, 4vw, 54px); border-radius: 18px; background: #fff; border: 1px solid var(--line); box-shadow: var(--shadow-sm); }
+    .doc h1 { margin: 0 0 18px; font: 400 clamp(32px, 4.4vw, 54px)/1.02 var(--serif); letter-spacing: -.02em; }
+    .doc h2 { margin: 2em 0 .5em; padding-top: 1em; border-top: 1px solid var(--line); font: 400 clamp(22px, 2.4vw, 30px)/1.15 var(--serif); }
+    .doc h3 { margin: 1.6em 0 .4em; font: 400 20px var(--serif); }
+    .doc p, .doc li { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
+    .doc ul, .doc ol { padding-left: 22px; }
+    .doc strong { color: var(--ink); }
+    .doc a { text-decoration: underline; text-underline-offset: 2px; }
+    .doc code { padding: 1px 6px; border-radius: 5px; background: var(--paper-2); font: 12.5px ui-monospace, "SF Mono", Menlo, monospace; }
+    .doc pre { padding: 16px 18px; border-radius: 12px; background: var(--charcoal); color: #f2f1ec; overflow-x: auto; }
+    .doc pre code { padding: 0; background: none; color: inherit; font-size: 13px; line-height: 1.6; white-space: pre-wrap; }
+    .doc blockquote { margin: 1.4em 0; padding: 4px 0 4px 18px; border-left: 3px solid var(--ink); }
+    .doc .table { overflow-x: auto; margin: 1.4em 0; }
+    .doc table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+    .doc th { text-align: left; padding: 10px; font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--ink); font-weight: 500; }
+    .doc td { padding: 10px; border-bottom: 1px dashed var(--line); vertical-align: top; color: var(--ink-2); }
+    .doc .loading { color: var(--muted); font: 20px var(--serif); }
+    .doc-foot { display: flex; justify-content: space-between; gap: 12px; margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 13px; }
+    .doc-foot a { text-decoration: none; color: var(--ink-2); }
+    .doc-foot a:hover { color: var(--ink); }
+    .doc-foot .raw { color: var(--muted); }
+    @media (max-width: 860px) {
+      .reader { grid-template-columns: 1fr; }
+      .toc { position: static; display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+      .toc p { display: none; }
+      .toc a { flex: none; margin: 0; border: 1px solid var(--line); }
+      .toc a small { display: none; }
+    }
+  </style>
+</head>
+<body>
+<a class="skip" href="#doc">Skip to the note</a>
+
+<header class="nav">
+  <div class="nav-line">
+    <a class="brand" href="../index.html" aria-label="My house, back to the photos">
+      <span class="brand-mark" aria-hidden="true">H</span><span class="brand-name">My house</span>
+    </a>
+    <nav class="sections" aria-label="Pages">
+      <a class="sec-link" href="../index.html">Photos</a>
+      <a class="sec-link" href="../model/3d-model.html">3D model</a>
+      <a class="sec-link" href="../wiring.html">Wiring budget</a>
+      <a class="sec-link" href="./" aria-pressed="true">Notes</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="reader">
+    <nav class="toc" id="toc" aria-label="Notes"><p>Notes</p></nav>
+    <article class="doc" id="doc" aria-live="polite"><p class="loading">Opening the note…</p></article>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="swatches" aria-label="Palette: 70 percent white, 20 percent grey, 10 percent black">
+    <span class="sw white"></span><span class="sw grey"></span><span class="sw black"></span>
+  </div>
+  <p><a href="../index.html">← Back to the house photos</a></p>
+  <p>White · grey · black</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+<script>
+(function () {
+  'use strict';
+  var NOTES = [
+    { f: '01-architectural-description', t: 'Description', s: 'Every room, named and explained' },
+    { f: '03-tv-wall-ideas', t: 'TV wall ideas', s: 'Six designs with sizes' },
+    { f: '06-kitchen-ideas', t: 'Kitchen ideas', s: 'Seven finish directions' },
+    { f: '05-ceiling-ideas', t: 'Ceiling ideas', s: 'Six layouts, spots and speakers' },
+    { f: '02-corrections-for-the-image-ai', t: 'Image AI notes', s: 'Rules for every new image' },
+    { f: '04-image-ai-command-tv-wall', t: 'TV wall command', s: 'Paste into the image tool' }
+  ];
+  var want = new URLSearchParams(location.search).get('f');
+  var i = Math.max(0, NOTES.findIndex(function (n) { return n.f === want; }));
+  var note = NOTES[i];
+  var toc = document.getElementById('toc'), doc = document.getElementById('doc');
+
+  NOTES.forEach(function (n, k) {
+    var a = document.createElement('a');
+    a.href = '?f=' + n.f;
+    a.innerHTML = n.t + '<small>' + n.s + '</small>';
+    if (k === i) a.setAttribute('aria-current', 'page');
+    toc.appendChild(a);
+  });
+
+  fetch(note.f + '.md').then(function (r) {
+    if (!r.ok) throw new Error(r.status);
+    return r.text();
+  }).then(function (md) {
+    doc.innerHTML = window.marked ? marked.parse(md) : '<pre><code></code></pre>';
+    if (!window.marked) doc.querySelector('code').textContent = md;
+    Array.prototype.forEach.call(doc.querySelectorAll('table'), function (t) {
+      var w = document.createElement('div'); w.className = 'table';
+      t.parentNode.insertBefore(w, t); w.appendChild(t);
+    });
+    var h1 = doc.querySelector('h1');
+    document.title = (h1 ? h1.textContent : note.t) + ' · House Notes';
+    var prev = NOTES[(i - 1 + NOTES.length) % NOTES.length], next = NOTES[(i + 1) % NOTES.length];
+    doc.insertAdjacentHTML('beforeend',
+      '<div class="doc-foot"><a href="?f=' + prev.f + '">← ' + prev.t + '</a>' +
+      '<a class="raw" href="' + note.f + '.md">Plain text</a>' +
+      '<a href="?f=' + next.f + '">' + next.t + ' →</a></div>');
+  }).catch(function () {
+    // opened straight from the folder, where the browser will not fetch files: show the plain file instead
+    location.replace(note.f + '.md');
+  });
+})();
+</script>
+</body>
+</html>
